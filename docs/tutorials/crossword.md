@@ -1,7 +1,7 @@
 ---
-id: crossword
-title: Crossword Tutorials
-sidebar_label: Crossword Tutorials
+id: onboarding
+title: NEAR Onboarding
+sidebar_label: NEAR Onboarding
 ---
 
 > This tutorial provides easy onboarding to NEAR concepts, Rust, and smart contract development.
