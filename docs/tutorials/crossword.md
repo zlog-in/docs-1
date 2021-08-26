@@ -4,11 +4,53 @@ title: NEAR Onboarding
 sidebar_label: NEAR Onboarding
 ---
 
-> This tutorial provides easy onboarding to NEAR concepts, Rust, and smart contract development.
+> This guide provides easy onboarding to NEAR concepts, Rust, and smart contract development.
 
 Writing distributed applications (dApps) and smart contracts involves a paradigm shift. This paradigm includes new concepts (state, transfer, account, etc.) that are critical to building full-fledged applications on the blockchain. This way of thinking also has its own learning curve, and might feel like an additional entry barrier. 
 
-## Introduction
+
+## NEAR Account
+
+### Create your account
+
+For this tutorial, you will be deploying a smart contract & creating access keys. In order to do this you will first need to create an account. There are several [development networks](https://docs.near.org/docs/concepts/networks#docsNav) on NEAR to choose from, but for this example we will be choosing `testnet`.
+
+To create a `testnet` account go to NEAR Wallet (https://wallet.testnet.near.org) and follow the instructions. If you need further assistance you can follow this [guide to account creation](/docs/develop/basics/create-account).
+
+### Login to your account
+
+This next step requires the use of [`near-cli`](/docs/tools/near-cli) a command line based tool that allows you to interact with the NEAR platform.
+
+> **Tip:** follow the instructions from the `near-cli` [installation guide](/docs/tools/near-cli#setup). If you already have the command line interface, you can skip these steps.
+
+Once installed run the following command in your terminal:
+
+```bash
+near login
+```
+
+This command creates an [access key](/docs/concepts/account#access-keys) for your account and stores it locally on your machine in the `/.near-credentials` folder under your home directory. We will discuss access keys in further detail next, but for now its important to understand that this key is needed to prove ownership of an account and will be used to perform actions on the blockchain.
+
+## Access keys
+
+Because NEAR uses human readable account IDs instead of a public key hash as the account identifier, many keys (public/private key pairs) can be created for each account that we call [Access Keys](/docs/concepts/account#access-keys). 
+
+Currently, there are two types of access keys:
+
+- Full access (`FullAccess`)
+  - Gives full access to an account and should be protected
+  - Used to deploy a contract, send Ⓝ and
+  - [more info here](/docs/concepts/account#full-access-keys)
+
+- Function-call access (`FunctionCall`)
+  - Can only call methods on smart contracts
+  - Can be very generic (any contract / any method)
+  - Can be scoped very narrowly (only a certain method on a certain contract)
+  - Can not transfer $NEAR without redirecting user to Wallet to Authorize
+  - [more info here](/docs/concepts/account#function-call-keys)
+
+
+## Puzzle contract
 
 The example presented in this article is a simple Crossword puzzle game. In this game, anyone can play and try to solve the puzzle. The first player to submit the correct answers gets a 10 Ⓝ prize. Behind this well-known game, a smart contract validates the answers and awards tokens to the winner.
 
@@ -17,10 +59,7 @@ In this tutorial, we’ll first look at the crossword game from the player’s p
 > **Tip:** If you're familiar with smart contract development, you may choose to jump straight into the [crossword source code](https://github.com/near-examples/near-crossword).
 
 
-
-## Version 0
-
-This version is really simple: the crossword owner designs a puzzle, and shares the hints along with a blank puzzle sheet to the players. Participants write down words that match the clues, and they fill in the puzzle. When complete, they have a seed phrase.
+This version is really simple: the crossword owner designs a puzzle, and shares the hints along with a blank puzzle sheet to the players. Participants write down words that match the clues, and they fill in the puzzle. When complete, they will use their answers to attempt to unlock a smart contract and receive the token prize inside.
 
 ```
 e.g.,
@@ -38,23 +77,23 @@ e.g.,
 
 ```
 
-### The first user to solve it wins
+The first user to solve it wins
 
 Steps for the player (solving the crossword) are:
 
-1. Find pen.
+1. Find a pen.
 2. Solve the crossword puzzle.
 3. Install NEAR CLI.
-4. Create the key pair from the solution.
+4. Create a key from the solution.
 5. Send a transaction to the crossword puzzle smart contract.
-6. Profit! (receive 10 Ⓝ)
+6. Profit! (Unlock the contract and receive 10 Ⓝ)
 
 Okay back on track…
-(end) this is all well and good from the user’s perspective, but what was the setup here? Let’s rewind and talk about how this puzzle would be set up
+This is all well and good from the user’s perspective, but what was the setup here? Let’s rewind and talk about how this puzzle would be set up.
 
-## Seed phrase
+### Seed phrase
 
-> **Tip:** A seed phrase (also called mnemonic seed or mnemonic phrase) is a random sequence of words. This sequence, entered in the right order, is converted to a private key that allows access to an account or contract.
+A seed phrase is a random sequence of words used to access an account on the blockchain. This sequence, entered in the right order, is converted using cryptography to a public/private key pair proving ownership. This phrase is also known as mnemonic seed, mnemonic phrase, backup phrase, or recovery phrase.
 
 Let's apply it to our puzzle: each word of the seed phrase corresponds to the hint numbers on the crossword, with across before down when applicable.
 
@@ -70,10 +109,6 @@ In this example:
 8. init 
 9. defi 
 10. dao
-
-Next step is to install [`near-cli`](/docs/tools/near-cli) so you can generate the key pair based on the crossword answers.
-
-> **Tip:** follow the instructions from the `near-cli` [installation guide](/docs/tools/near-cli#setup). If you already have the command line interface, you can skip these steps.
 
 ### Create key pair
 
@@ -196,21 +231,6 @@ Keys for account v0.crossword.puzzle.near
 
 
 This is a good time to mention that sometimes you’ll see this as an empty array, and this means that all methods can be called. (Unless it requires a deposit, which can only be done with a full-access key. This is another point to raise, the allowance cannot be transferred as Ⓝ, it can only be used as gas for transactions to that one method.)
-
-## Access keys in NEAR
-
-NEAR uses human readable account IDs instead of a public key hash as the account identifier and many keys (public/private key pairs) can be created for each account that we call [Access Keys](/docs/concepts/account#access-keys). 
-
-Currently, there are two types of access keys:
-
-- Function-call access (`FunctionCall`)
-  - Great for logging into decentralized apps (dApps)
-  - Onboarding users who don’t have a NEAR account
-  - Sky’s the limit
-- Full access (`FullAccess`)
-  - Should be protected
-  - Used to deploy a contract, send Ⓝ and other powerful activities
-  - Actions
 
 
 ### Actions for crossword submission
