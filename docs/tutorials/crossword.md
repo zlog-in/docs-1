@@ -4,7 +4,9 @@ title: Crossword Tutorials
 sidebar_label: Crossword Tutorials
 ---
 
-Writing distributed applications (dApps) and smart contracts involves a paradigm shift. This paradigm includes new concepts (state, transfer, account, etc.) that are critical to building full-fledged applications on the blockchain. This way of thinking also has its own learning curve, and might feel like an additional entry barrier. This tutorial series provides easy onboarding to NEAR concepts, Rust, and smart contract development.
+> This tutorial provides easy onboarding to NEAR concepts, Rust, and smart contract development.
+
+Writing distributed applications (dApps) and smart contracts involves a paradigm shift. This paradigm includes new concepts (state, transfer, account, etc.) that are critical to building full-fledged applications on the blockchain. This way of thinking also has its own learning curve, and might feel like an additional entry barrier. 
 
 ## Introduction
 
@@ -14,34 +16,6 @@ In this tutorial, we’ll first look at the crossword game from the player’s p
 
 > **Tip:** If you're familiar with smart contract development, you may choose to jump straight into the [crossword source code](https://github.com/near-examples/near-crossword).
 
-## Iterations
-
-To flatten the learning curve, we are dividing the crossword puzzle solution into three iterative versions. Each version will add new features and grow in complexity, and we'll explain these changes throughout the series. 
-
-### Crossword v0
-
-The Crossword puzzle in the first version is just a piece of paper. Literally it only needs a physical sheet of paper with a crossword on it, and access to a computer with Internet once it’s solved in ink.
-Players will use their computers to submit a solution after solving the puzzle.
-
-The first version (v0) of the Crossword smart contract is only focused on validating the answers and sending a reward to the winner. This minimum solution needs:
-
-- Sheet of paper with the crossword puzzle
-- Computer with Internet
-- Existing NEAR account
-
-### Crossword v1
-
-This improved version (v1) of the Crossword smart contract can create a NEAR `mainnet` account and send the reward to it. This version requires:
-
-- Sheet of paper with the crossword puzzle
-- Computer with Internet
-
-
-### Crossword v2
-
-The final version of the Crossword (v2) adds a frontend with the digital crossword puzzle. It has only one requirement:
-
-- Computer with Internet
 
 
 ## Version 0
