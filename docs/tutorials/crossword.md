@@ -54,7 +54,7 @@ Okay back on track…
 
 ## Seed phrase
 
-> **Tip:** A seed phrase (also called mnemonic seed or mnemonic phrase) is a random sequence of words. This sequence, entered in the right order, is converted using formulas to numbers that gives access to a wallet and the public/private key pairs that it contains.
+> **Tip:** A seed phrase (also called mnemonic seed or mnemonic phrase) is a random sequence of words. This sequence, entered in the right order, is converted to a private key that allows access to an account or contract.
 
 Let's apply it to our puzzle: each word of the seed phrase corresponds to the hint numbers on the crossword, with across before down when applicable.
 
