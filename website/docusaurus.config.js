@@ -14,7 +14,7 @@ module.exports={
     "/js/hotjar.js"
   ],
   "stylesheets": [
-    "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&family=Source+Code+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap",
+    "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;800&family=Source+Code+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap",
     "/css/copy-code-button.css",
     "/css/landing-page.css",
     "https://near.org/wp-content/themes/near-19/assets/dist/near.min.css"
@@ -24,7 +24,7 @@ module.exports={
     "disableHeaderTitle": true,
     "fonts": {
       "myFont": [
-        "Inter",
+        "Manrope",
         "sans-serif"
       ]
     }

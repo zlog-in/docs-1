@@ -8,6 +8,11 @@
     --footer-font-size: 18px;
     --cls-4-font-size: 72px;
 
+    --ifm-navbar-height: 5rem;
+    --ifm-navbar-shadow: none;
+
+    --ifm-toc-border-color: transparent;
+
     --near-color-black: #000000;
     --near-color-slate: #4b4f54;
     --near-color-red: #ff585d;
@@ -22,8 +27,8 @@
     --color-error: red;
     --color-footer: #23262a;
 
-    --near-font-headlines: Inter, sans-serif;
-    --near-font-body: Inter, sans-serif;
+    --near-font-headlines: Manrope, sans-serif;
+    --near-font-body: Manrope, sans-serif;
 }
 
 body {
@@ -176,12 +181,16 @@ blockquote.danger:before {
     content: "\f056";
 }
 
+/* NAVBAR */
+
 /* navbar height overrides */
 .fixedHeaderContainer {
     padding: 5px 0;
     background: #fff;
     border-bottom: 2px solid #f2f2f2;
 }
+
+
 
 /* logo sizing */
 img.logo {
@@ -206,17 +215,17 @@ h6 {
 h1 {
     font-size: var(--h1-font-size);
     margin: 0 0 0 0;
-    font-weight: 900;
+    font-weight: 500;
 }
 
 h2 {
     font-size: var(--h2-font-size);
     margin: 10 0 0 0;
-    font-weight: 900;
+    font-weight: 600;
 }
 
 h3 {
-    font-weight: 900;
+    font-weight: 600;
 }
 
 /* global highlights */
@@ -581,6 +590,49 @@ body > div.navPusher > footer > div.bg-black-25.py-20.md\:py-30 > div > a:hover 
 super {
     vertical-align: super;
     font-size: 0.75em;
+}
+
+/* BACKGROUND BUBBLES */
+
+.container {
+    position: relative;
+}
+
+.bubble-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* overflow: hidden; */
+    z-index: -1;
+}
+
+.bubble {
+    border-radius: 9999px;
+    filter: blur(64px);
+    opacity: .2;
+    position: absolute;
+    width: 20rem;
+    height: 10rem;
+}
+
+.bubble-1 {
+    background-image: linear-gradient(to right, #aad055 10%, #ffc860 90%);
+    top: -5vw;
+    left: 0;
+}
+
+.bubble-2 {
+    background-image: linear-gradient(to right, #4fd1d9 10%, #e3935b 90%);
+    top: 0;
+    right: 15vw;
+}
+
+.bubble-3 {
+    background-image: linear-gradient(to right, #a463b0 10%, #ffc860 90%);
+    bottom: -5vw;
+    left: 40vw;
 }
 
 /* added by jake =======================================================*/
