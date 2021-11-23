@@ -7,7 +7,6 @@ sidebar_label: Quick Reference
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-
 > Here is a collection of the most commonly used methods within [`near-api-js`](https://github.com/near/near-api-js/). For more in-depth look into this library, please reference the [TypeDocs](https://near.github.io/near-api-js/).
 
 ## Setup {#setup}
@@ -55,7 +54,7 @@ const keyStore = new keyStores.BrowserLocalStorageKeyStore();
 
 ```js
 // creates a keyStore that searches for keys in .near-credentials
-// requires credentials stored locally by using a NEAR-CLI command: `near login` 
+// requires credentials stored locally by using a NEAR-CLI command: `near login`
 // https://docs.near.org/docs/tools/near-cli#near-login
 
 const { keyStores } = nearAPI;
@@ -76,14 +75,18 @@ const { KeyPair, keyStores } = require("near-api-js");
 const fs = require("fs");
 const homedir = require("os").homedir();
 
-const ACCOUNT_ID = "near-example.testnet";  // NEAR account tied to the keyPair
+const ACCOUNT_ID = "near-example.testnet"; // NEAR account tied to the keyPair
 const NETWORK_ID = "testnet";
 // path to your custom keyPair location (ex. function access key for example account)
-const KEY_PATH = '/.near-credentials/near-example-testnet/get_token_price.json';
+const KEY_PATH = "/.near-credentials/near-example-testnet/get_token_price.json";
 
 const credentials = JSON.parse(fs.readFileSync(homedir + KEY_PATH));
 const keyStore = new keyStores.InMemoryKeyStore();
-keyStore.setKey(NETWORK_ID, ACCOUNT_ID, KeyPair.fromString(credentials.private_key));
+keyStore.setKey(
+  NETWORK_ID,
+  ACCOUNT_ID,
+  KeyPair.fromString(credentials.private_key)
+);
 ```
 
 </TabItem>
@@ -269,7 +272,9 @@ const signIn = () => {
 };
 ```
 
+:::tip
 **Note:** Sign In is **_not required_** if you are using an alternative key store to local storage **_or_** you are not signing transactions _(using view call methods on a contract)_
+:::
 
 ### Sign Out {#sign-out}
 
@@ -282,8 +287,8 @@ const signOut = () => {
 ### Check if Signed In {#check-if-signed-in}
 
 ```js
-if(wallet.isSignedIn()) {
-	doSomething();
+if (wallet.isSignedIn()) {
+  doSomething();
 }
 ```
 
@@ -358,6 +363,7 @@ const near = await connect(config);
 const account = await near.account("example-account.testnet");
 await account.getAccountDetails();
 ```
+
 [`config setup`](/docs/api/naj-quick-reference#connect)
 
 ### Deploy a Contract {#deploy-a-contract}
@@ -365,7 +371,9 @@ await account.getAccountDetails();
 ```js
 const near = await connect(config);
 const account = await near.account("example-account.testnet");
-const response = await account.deployContract(fs.readFileSync('./wasm_files/status_message.wasm'));
+const response = await account.deployContract(
+  fs.readFileSync("./wasm_files/status_message.wasm")
+);
 console.log(response);
 ```
 
