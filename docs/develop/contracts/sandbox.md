@@ -50,6 +50,8 @@ rm -rf /tmp/near-sandbox
 
 For this example we'll use a simple smart contract (status-message) with two methods; `set_status` & `get_status`.
 
+It may be useful to open up an additional terminal for the next part of this tutorial.
+
 Clone the [status example example](https://github.com/near-examples/rust-status-message) where the contract is in `res/status_message.wasm`.
 
 Here are the two functions we'll be using:
@@ -74,8 +76,12 @@ npm i near-api-js bn.js
 3. Write a test `test.js` that does deploy the contract, test with the contract logic:
 
 ```js
+// near rpc javascript api
 const nearAPI = require("near-api-js");
+
+//Big Number
 const BN = require("bn.js");
+
 const fs = require("fs").promises;
 const assert = require("assert").strict;
 
@@ -93,10 +99,12 @@ function getConfig(env) {
   }
 }
 
+// methods available to call from rust status message contract
 const contractMethods = {
   viewMethods: ["get_status"],
   changeMethods: ["set_status"],
 };
+
 let config;
 let masterAccount;
 let masterKey;
@@ -104,15 +112,28 @@ let pubKey;
 let keyStore;
 let near;
 
+// setup near_sandbox connection
 async function initNear() {
+  // initiate config from above
   config = getConfig(process.env.NEAR_ENV || "sandbox");
+
+  // store keypath
   const keyFile = require(config.keyPath);
+
+  // generates key pair from public key
   masterKey = nearAPI.utils.KeyPair.fromString(
     keyFile.secret_key || keyFile.private_key
   );
+
   pubKey = masterKey.getPublicKey();
+
+  // create new keystore
   keyStore = new nearAPI.keyStores.InMemoryKeyStore();
+
+  // stores key pair in an in-memory storage system
   keyStore.setKey(config.networkId, config.masterAccount, masterKey);
+
+  // using the key store the network id and the node url this establishes a connection to the near blockchain
   near = await nearAPI.connect({
     deps: {
       keyStore,
@@ -120,6 +141,8 @@ async function initNear() {
     networkId: config.networkId,
     nodeUrl: config.nodeUrl,
   });
+
+  // this creates an account object giving you the information of test.near
   masterAccount = new nearAPI.Account(near.connection, config.masterAccount);
   console.log("Finish init NEAR");
 }
@@ -129,24 +152,34 @@ async function createContractUser(
   contractAccountId,
   contractMethods
 ) {
+  // creates a sub account name and stores it in accountId
   let accountId = accountPrefix + "." + config.masterAccount;
+
+  // the account object comes with the method create account to create and fund sub accounts
   await masterAccount.createAccount(
     accountId,
     pubKey,
     new BN(10).pow(new BN(25))
   );
+  // sets master key as key to sub account
   keyStore.setKey(config.networkId, accountId, masterKey);
   const account = new nearAPI.Account(near.connection, accountId);
+
+  // creates a contract instance to interact with contract methods and get information about the contract
   const accountUseContract = new nearAPI.Contract(
     account,
     contractAccountId,
     contractMethods
   );
+
   return accountUseContract;
 }
 
+// initiate test
 async function initTest() {
+  // retrieve wasm file
   const contract = await fs.readFile("./res/status_message.wasm");
+  // deploy wasm file to contract account
   const _contractAccount = await masterAccount.createAndDeployContract(
     config.contractAccount,
     pubKey,
@@ -154,12 +187,14 @@ async function initTest() {
     new BN(10).pow(new BN(25))
   );
 
+  // create a subaccount for alice
   const aliceUseContract = await createContractUser(
     "alice",
     config.contractAccount,
     contractMethods
   );
 
+  // create a subaccount for bob
   const bobUseContract = await createContractUser(
     "bob",
     config.contractAccount,
@@ -209,6 +244,12 @@ The test itself is very straightforward as it performs the following:
 3. Gets Bob's status and which should be `null` as Bob has not yet set status.
 4. Performs a `set_status` transaction signed by Bob and then calls `get_status` to show Bob's changed status and should not affect Alice's status.
 
+run this in the appropriate directory to run this script
+
+```bash
+node test.js
+```
+
 > Most of the code above is boilerplate code to set up NEAR API, key pairs, testing accounts, and deploy the contract. We're working on a NEAR CLI `near test` command to do this setup code, so you can focus on writing only `test()` for this.
 
 ## Sandbox-only Features for Testing {#sandbox-only-features-for-testing}
@@ -234,22 +275,23 @@ curl http://localhost:3030 -H 'content-type: application/json' -d '{"jsonrpc": "
 ```
 
 Result:
+
 ```json
 {
-   "jsonrpc": "2.0",
-   "result": {
-      "values": [
-         {
-            "key": "U1RBVEU=",
-            "value": "AgAAAA8AAABhbGljZS50ZXN0Lm5lYXIFAAAAaGVsbG8NAAAAYm9iLnRlc3QubmVhcgUAAAB3b3JsZA==",
-            "proof": []
-         }
-      ],
-      "proof": [],
-      "block_height": 24229,
-      "block_hash": "XeCMK1jLNCu2UbkAKk1LLXEQVqvUASLoxSEz1YVBfGH"
-   },
-   "id": 1
+  "jsonrpc": "2.0",
+  "result": {
+    "values": [
+      {
+        "key": "U1RBVEU=",
+        "value": "AgAAAA8AAABhbGljZS50ZXN0Lm5lYXIFAAAAaGVsbG8NAAAAYm9iLnRlc3QubmVhcgUAAAB3b3JsZA==",
+        "proof": []
+      }
+    ],
+    "proof": [],
+    "block_height": 24229,
+    "block_hash": "XeCMK1jLNCu2UbkAKk1LLXEQVqvUASLoxSEz1YVBfGH"
+  },
+  "id": 1
 }
 ```
 
@@ -333,16 +375,16 @@ So the key of the key-value pair is the ASCII string `STATE`. This is because al
 4. Note at the bottom of the `borsh.js` file that we've added a message for `alice.near` directly to the state:
 
 ```javascript
-statusMessage.records.push(new Record({ k: 'alice.near', v: 'hello world' }))
-console.log(statusMessage)
+statusMessage.records.push(new Record({ k: "alice.near", v: "hello world" }));
+console.log(statusMessage);
 ```
 
 5. After that snippet, notice how it's serialize and base64 encoded, so it can be used in a `patch_state` remote procedure call:
 
 ```javascript
 console.log(
-  Buffer.from(borsh.serialize(schema, statusMessage)).toString('base64')
-)
+  Buffer.from(borsh.serialize(schema, statusMessage)).toString("base64")
+);
 ```
 
 The final output is:
@@ -388,27 +430,27 @@ curl http://localhost:3030 -H 'content-type: application/json' -d '{"jsonrpc": "
 7. Comment everything after `const { aliceUseContract, bobUseContract } = await initTest();` and add:
 
 ```javascript
-let client = new nearAPI.providers.JsonRpcProvider(config.nodeUrl)
-let key = Buffer.from('STATE').toString('base64')
+let client = new nearAPI.providers.JsonRpcProvider(config.nodeUrl);
+let key = Buffer.from("STATE").toString("base64");
 
 // Here is how patch state can be used
-await client.sendJsonRpc('sandbox_patch_state', {
+await client.sendJsonRpc("sandbox_patch_state", {
   records: [
     {
       Data: {
         account_id: config.contractAccount,
         data_key: key,
         value:
-          'AwAAAA8AAABhbGljZS50ZXN0Lm5lYXIFAAAAaGVsbG8NAAAAYm9iLnRlc3QubmVhcgUAAAB3b3JsZAoAAABhbGljZS5uZWFyCwAAAGhlbGxvIHdvcmxk',
+          "AwAAAA8AAABhbGljZS50ZXN0Lm5lYXIFAAAAaGVsbG8NAAAAYm9iLnRlc3QubmVhcgUAAAB3b3JsZAoAAABhbGljZS5uZWFyCwAAAGhlbGxvIHdvcmxk",
       },
     },
   ],
-})
+});
 
 let alice_mainnet_message = await bobUseContract.get_status({
-  account_id: 'alice.near',
-})
-assert.equal(alice_mainnet_message, 'hello world')
+  account_id: "alice.near",
+});
+assert.equal(alice_mainnet_message, "hello world");
 ```
 
 Rerun the test (`node test.js`) and it should pass.
