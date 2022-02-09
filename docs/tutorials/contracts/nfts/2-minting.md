@@ -234,6 +234,10 @@ For deployment, you will need a NEAR account with the keys stored on your local 
 Please ensure that you deploy the contract to an account with no pre-existing contracts. It's easiest to simply create a new account or create a sub-account for this tutorial.
 :::
 
+:::caution
+Have you setup your API keys yet? If you haven't yet, be sure to follow [the first 2 steps of Pre-deployed Contract: Setup](http://localhost:3000/docs/tutorials/contracts/nfts/predeployed-contract#setup) before continuing.
+:::
+
 Log in to your newly created account with `near-cli` by running the following command in your terminal.
 
 ```bash
@@ -270,6 +274,18 @@ near call $NFT_CONTRACT_ID new_default_meta '{"owner_id": "'$NFT_CONTRACT_ID'"}'
 ```
 
 You've just initialized the contract with some default metadata and set your account ID as the owner. At this point, you're ready to call your first view function.
+
+### The Quick Info Card
+
+At the bottom-right corner of your screen, you'll see a card prompting you to input a contract address. Once you've deployed the contract below, input the account name in this card to see metrics about your NFT contract!
+
+1. Click on the quick info card to reveal the account name input.
+  ![The Quick Info Card Closed](/docs/assets/nfts/quick-info-card-add.png)
+
+1. Input the contract's account name (the `$NFT_CONTRACT_ID`) and click the Add button. Once the NFT contract has been fetched, you'll see the card populate with metrics and any tokens you've minted.
+  ![The Quick Info Card Open](/docs/assets/nfts/quick-info-card-stats.png)
+
+You can also view these metrics in [the Developer Console Analytics screen](/analytics). Now we'll see how to verify these details through the CLI.
 
 ### Viewing the contract's metadata
 

@@ -36,7 +36,7 @@ Following a regular [Rust](https://www.rust-lang.org/) project, the file structu
 
 | File                             | Description                                                                      |
 | -------------------------------- | -------------------------------------------------------------------------------- |
-| [approval.rs](#approvalrs)       | Has the functions that controls the access and transfers of non-fungible tokens. |
+| [approval.rs](#approvalrs)       | Has the functions that control the access and transfers of non-fungible tokens. |
 | [enumeration.rs](#enumerationrs) | Contains the methods to list NFT tokens and their owners.                        |
 | [lib.rs](#librs)                 | Holds the smart contract initialization functions.                               |
 | [metadata.rs](#metadatars)       | Defines the token and metadata structure.                                        |

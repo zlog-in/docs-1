@@ -8,14 +8,14 @@ In this tutorial, you'll learn about the [events standard](https://nomicon.io/St
 
 ## Introduction
 
-To get started, either switch to the `6.royalty` branch from our [GitHub repository](https://github.com/near-examples/nft-tutorial/), or continue your work from the previous tutorials.
+To get started, either switch to the `7.events` branch from our [GitHub repository](https://github.com/near-examples/nft-tutorial/), or continue your work from the previous tutorials.
 
 ```bash
-git checkout 6.royalty
+git checkout 7.events
 ```
 
 :::tip
-If you're joining us for the first time, feel free to clone [this repository](https://github.com/near-examples/nft-tutorial/) and checkout the `6.royalty` branch to follow along.
+If you're joining us for the first time, feel free to clone [this repository](https://github.com/near-examples/nft-tutorial/) and checkout the `7.events` branch to follow along.
 :::
 
 ## Understanding the use case {#understanding-the-use-case}

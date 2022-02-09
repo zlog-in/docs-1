@@ -17,49 +17,63 @@ To complete this tutorial successfully, you'll need:
 
 ### Setup
 
-- Log in to your newly created account with `near-cli` by running the following command in your terminal:
+1. Before we run any commands, we'll need to tell the CLI which API service we're using by providing its URL and an access key. RPC stands for Remote Procedure Call, and is how we communicate with the NEAR blockchain. Set the RPC URL with an environment variable:
 
-```bash
-near login
-```
+  ```bash
+  export NEAR_CLI_TESTNET_RPC_SERVER_URL=https://testnet.rpc.near.dev/
+  ```
 
- - Set an environment variable for your account ID to make it easy to copy and paste commands from this tutorial:
+1. Then, configure your API key:
 
-```bash
-export NEARID=YOUR_ACCOUNT_NAME
-```
-:::note
+  ```bash
+  near set-api-key https://testnet.rpc.near.dev/ <<API_KEY>>
+  ```
 
-Be sure to replace `YOUR_ACCOUNT_NAME` with the account name you just logged in with including the `.testnet` (or `.near` for `mainnet`).
+  :::info
+  You can find your API keys at any time on the [Project Settings screen](/settings).
+  :::
 
-:::
+1. With the RPC credentials in place, log in to your newly created account with `near-cli` by running the following command in your terminal:
 
-- Test that the environment variable is set correctly by running:
+  ```bash
+  near login
+  ```
 
-```bash
-echo $NEARID
-```
+1. Set an environment variable for your account ID to make it easy to copy and paste commands from this tutorial:
+
+  ```bash
+  export NEARID=YOUR_ACCOUNT_NAME
+  ```
+
+  :::note
+  Be sure to replace `YOUR_ACCOUNT_NAME` with the account name you just logged in with including the `.testnet` (or `.near` for `mainnet`).
+  :::
+
+1. Test that the environment variable is set correctly by running:
+
+  ```bash
+  echo $NEARID
+  ```
 
 ### Minting your NFTs
 
 NEAR has deployed an NFT contract to the account `nfts.examples.testnet` which allows users to freely mint tokens. Using this pre-deployed contract, let's mint our first token! 
 
+1. Run this command in your terminal, however you **must replace the `token_id` value with an UNIQUE string**.
 
-- Run this command in your terminal, however you **must replace the `token_id` value with an UNIQUE string**.
+  ```bash
+  near call example-nft.testnet nft_mint '{"token_id": "TYPE_A_UNIQUE_VALUE_HERE", "receiver_id": "'$NEARID'", "token_metadata": { "title": "GO TEAM", "description": "The Team Goes", "media": "https://bafybeidl4hjbpdr6u6xvlrizwxbrfcyqurzvcnn5xoilmcqbxfbdwrmp5m.ipfs.dweb.link/", "copies": 1}}' --accountId $NEARID --deposit 0.1
+  ```
 
-```bash
-near call example-nft.testnet nft_mint '{"token_id": "TYPE_A_UNIQUE_VALUE_HERE", "receiver_id": "'$NEARID'", "token_metadata": { "title": "GO TEAM", "description": "The Team Goes", "media": "https://bafybeidl4hjbpdr6u6xvlrizwxbrfcyqurzvcnn5xoilmcqbxfbdwrmp5m.ipfs.dweb.link/", "copies": 1}}' --accountId $NEARID --deposit 0.1
-```
+  :::tip
+  You can also replace the `media` URL with a link to any image file hosted on your web server.
+  :::
 
-:::tip
-You can also replace the `media` URL with a link to any image file hosted on your web server.
-:::
+  <details>
+  <summary>Example response: </summary>
+  <p>
 
-<details>
-<summary>Example response: </summary>
-<p>
-
-```json
+  ```json
 {
   "token_id": "0",
   "owner_id": "dev-xxxxxx-xxxxxxx",
@@ -79,22 +93,22 @@ You can also replace the `media` URL with a link to any image file hosted on you
   },
   "approved_account_ids": {}
 }
-```
+  ```
 
-</p>
-</details>
+  </p>
+  </details>
 
-- To view tokens owned by an account you can call the NFT contract with the following `near-cli` command:
+1. To view tokens owned by an account you can call the NFT contract with the following `near-cli` command:
 
-```bash
-near view example-nft.testnet nft_tokens_for_owner '{"account_id": "'$NEARID'"}'
-```
+  ```bash
+  near view example-nft.testnet nft_tokens_for_owner '{"account_id": "'$NEARID'"}'
+  ```
 
-<details>
-<summary>Example response: </summary>
-<p>
+  <details>
+  <summary>Example response: </summary>
+  <p>
 
-```json
+  ```json
 [
   {
     "token_id": "0",
@@ -116,10 +130,10 @@ near view example-nft.testnet nft_tokens_for_owner '{"account_id": "'$NEARID'"}'
     "approved_account_ids": {}
   }
 ]
-```
+  ```
 
-</p>
-</details>
+  </p>
+  </details>
 
 ***Congratulations! You just minted your first NFT token on the NEAR blockchain!*** 🎉
 
@@ -139,5 +153,5 @@ Now that you're familiar with the process, you can jump to [Contract Architectur
 
 At the time of this writing, this example works with the following versions:
 
-- near-cli: `3.0.0`
+- near-cli: `3.0.0` or above
 :::

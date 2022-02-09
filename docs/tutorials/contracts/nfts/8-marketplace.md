@@ -212,3 +212,16 @@ You then went through the [nft_callbacks](#nft_callbacks-rs) file to understand 
 Finally, you went through the enumeration methods found in the [`sale_view`](#sale_view-rs) file. These allow you to query for important information found on the marketplace contract. 
 
 You should now have a solid understanding of NFTs and marketplaces on NEAR. Feel free to branch off and expand on these contracts to create whatever cool applications you'd like. The world is your oyster! Thanks for joining on this journey and don't forget, **Go Team!**
+
+### Next steps: adding a frontend
+
+Now you have a system of contracts for a complete NFT marketplace, but there's one big part missing--a frontend UI! We're working on a tutorial that will guide you through building a frontend for this tutorial, but for now we wanted to provide you with the final UI to make this a complete dapp. [Download the NFT Marketplace frontend here.](#)
+
+### Progressing to a full project
+
+Click the button below to mark this tutorial complete, turning it into a full project. Doing so will change a few things:
+
+- **Remove the Tutorial from the menu bar.** If you need to reference this again, you can check it out in [the NEAR documentation](http://localhost:3000/docs/tutorials/contracts/nfts/introduction).
+- **Add a mainnet API key.** This allows you to launch your dapp to the live network with real funds.
+
+<button type="button" class="btn">Complete Tutorial</button>
