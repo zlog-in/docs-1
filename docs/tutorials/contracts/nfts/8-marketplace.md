@@ -215,7 +215,11 @@ You should now have a solid understanding of NFTs and marketplaces on NEAR. Feel
 
 ### Next steps: adding a frontend
 
-Now you have a system of contracts for a complete NFT marketplace, but there's one big part missing--a frontend UI! We're working on a tutorial that will guide you through building a frontend for this tutorial, but for now we wanted to provide you with the final UI to make this a complete dapp. [Download the NFT Marketplace frontend here.](#)
+Now you have a system of contracts for a complete NFT marketplace, but there's one big part missing--a frontend UI! We're working on a tutorial that will guide you through building a frontend for this tutorial, but for now we wanted to provide you with a minimal frontend to get started making this a complete dapp. This UI lets users login with a NEAR wallet, mint one of our NFTs, and detects if they already own one. [Download the NFT minting frontend here](https://github.com/near-examples/nft-tutorial-frontend) or clone it with:
+
+```bash
+git clone git@github.com:near-examples/nft-tutorial-frontend.git
+```
 
 ### Progressing to a full project
 
