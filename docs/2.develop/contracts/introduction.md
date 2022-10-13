@@ -12,7 +12,7 @@ In NEAR, smart contracts are written using the NEAR SDK which comes in two flavo
 
 ## Prerequisites
 
-To develop any smart contract you will need to you will to install Node.js. If you further want to use Rust as your main language, then you need to install `rustup` as well.
+To develop any smart contract you will need to install Node.js. If you further want to use Rust as your main language, then you need to install `rustup` as well.
 
 #### Node.js
 Download and install [Node.js](https://nodejs.org/en/download/). We further recommend to install [yarn](https://yarnpkg.com): `npm install -g yarn`.
